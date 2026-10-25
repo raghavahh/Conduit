@@ -1,0 +1,46 @@
+{
+  "name": "conduit",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "migrate": "wrangler d1 execute conduit-prod --file=./DB/schema.sql --remote",
+    "migrate:local": "wrangler d1 execute conduit-prod --file=./DB/schema.sql",
+    "secret:resend": "wrangler secret put RESEND_API_KEY",
+    "secret:razorpay:key": "wrangler secret put RAZORPAY_KEY_ID",
+    "secret:razorpay:secret": "wrangler secret put RAZORPAY_KEY_SECRET",
+    "secret:razorpay:wh": "wrangler secret put RAZORPAY_WEBHOOK_SECRET",
+    "secret:paypal:id": "wrangler secret put PAYPAL_CLIENT_ID",
+    "secret:paypal:secret": "wrangler secret put PAYPAL_CLIENT_SECRET",
+    "secret:paypal:wh": "wrangler secret put PAYPAL_WEBHOOK_ID",
+    "secret:paypal:mode": "wrangler secret put PAYPAL_MODE",
+    "secret:jwt": "wrangler secret put JWT_SECRET",
+    "secret:crm": "wrangler secret put CRM_WEBHOOK_SECRET",
+    "cf:d1:create": "wrangler d1 create conduit-prod",
+    "cf:kv:create": "wrangler kv namespace create KV --preview",
+    "cf:r2:create": "wrangler r2 bucket create conduit-assets",
+    "cf:queue:webhook": "wrangler queues create webhook-delivery",
+    "cf:queue:email": "wrangler queues create email-delivery"
+  },
+  "dependencies": {
+    "@hono/zod-validator": "^0.4.0",
+    "@paypal/checkout-server-sdk": "^1.0.3",
+    "argon2": "^0.40.0",
+    "hono": "^4.13.14",
+    "razorpay": "^2.9.0",
+    "resend": "^3.5.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260702.1",
+    "@types/node": "^20.19.43",
+    "@types/paypal__checkout-server-sdk": "^1.0.8",
+    "@types/react": "^19.3.0",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.5.0",
+    "uuid": "^14.0.3",
+    "wrangler": "^3.60.0"
+  }
+}
